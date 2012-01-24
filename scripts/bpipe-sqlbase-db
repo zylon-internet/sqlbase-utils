@@ -1,0 +1,8 @@
+#!/bin/bash
+
+SQLBASE=/opt/Unify/SQLBase
+
+SQLBASE=$SQLBASE LD_LIBRARY_PATH=$SQLBASE /usr/local/bin/sqlbdbn MVSERV | while read DATABASE;
+do 
+  echo "bpipe:/SQLBASE/$DATABASE.sql:SQLBASE=$SQLBASE LD_LIBRARY_PATH=$SQLBASE /usr/local/bin/sqlbunl $DATABASE:"
+done

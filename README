@@ -7,6 +7,16 @@ SQLBASE library also uses SQLBASE to look for the sql.ini.
 
 Compile with:
 
+# mkdir bin
 # export SQLBASE=/opt/Unify/SQLBase
 # gcc -o bin/sqlbunl src/sqlbunl.c -I${SQLBASE}/include -L${SQLBASE}/lib -lsqllxm -lpthread -ldl
+# gcc -o bin/sqlbdbn src/sqlbdbn.c -I${SQLBASE}/include -L${SQLBASE}/lib -lsqllxm -lpthread -ldl
 
+Use with bacula:
+
+# scripts/pipe-sqlbase-db
+bpipe:/SQLBASE/DB1.sql:/usr/local/bin/sqlbunl DB1:
+bpipe:/SQLBASE/DB2.sql:/usr/local/bin/sqlbunl DB2:
+bpipe:/SQLBASE/DB3.sql:/usr/local/bin/sqlbunl DB3:
+
+Add it like 'Plugin = "\\|/etc/bacula/scripts/bpipe-sqlbase-db"' in your FileSet.
