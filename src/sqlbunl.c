@@ -56,8 +56,11 @@ unloadx (SQLTCUR cur, int fd)
   SQLTRCD rcd;			/* return code  */
   char buf[BUFFER_SIZE];	/* unload data buffer   */
 
-  if (rcd = sqlcom (cur, "UNLOAD DATABASE foo ON CLIENT", 0))   // 
-    failure ("sqlcom", cur, rcd);  
+
+/* 'foo' means the filename, but this is ignored by the server if 'ON CLIENT' is provided
+   http://www.unify.com/onlinedocs/sb/help/unload_command.htm */
+  if (rcd = sqlcom (cur, "UNLOAD DATABASE foo ON CLIENT", 0))
+    failure ("sqlcom", cur, rcd);
 
   if (rcd = sqlexe (cur))
     failure ("sqlexe", cur, rcd);
@@ -82,7 +85,7 @@ unloadx (SQLTCUR cur, int fd)
   if (rcd > 1)
     failure ("still data: ", cur, rcd);
 
-  close(fd);
+  close (fd);
 }
 
 void
@@ -140,13 +143,14 @@ main (int argc, char *argv[])
 
   dbname = argv[optind];
   if (!filename)
-    fd = fileno(stdout); 
-  else 
-  if (!strcmp(filename,"-"))
-    fd = fileno(stdout); 
-        else    
-  if ((fd = open (filename, "w")) < 0)
-    { fprintf (stderr, "File already exists"); exit(1); }
+    fd = fileno (stdout);
+  else if (!strcmp (filename, "-"))
+    fd = fileno (stdout);
+  else if ((fd = open (filename, "w")) < 0)
+    {
+      fprintf (stderr, "File already exists");
+      exit (1);
+    }
 
 
 
