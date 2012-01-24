@@ -1,0 +1,12 @@
+SQLBase utils
+
+Minimal readme for now
+
+Put your path to SQLBase in the SQLBASE environment variable.
+SQLBASE library also uses SQLBASE to look for the sql.ini.
+
+Compile with:
+
+# export SQLBASE=/opt/Unify/SQLBase
+# gcc -o bin/sqlbunl src/sqlbunl.c -I${SQLBASE}/include -L${SQLBASE}/lib -lsqllxm -lpthread -ldl
+
