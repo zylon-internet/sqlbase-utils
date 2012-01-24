@@ -2,6 +2,10 @@ SQLBase utils
 
 Minimal readme for now
 
+Why? 
+sqllxtlk has a horrible CLI and SQLBase doesn't support backing up to a pipe
+
+How? 
 Put your path to SQLBase in the SQLBASE environment variable.
 SQLBASE library also uses SQLBASE to look for the sql.ini.
 
